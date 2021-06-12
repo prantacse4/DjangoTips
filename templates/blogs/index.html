@@ -1,0 +1,58 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+{% block title %}
+    Home
+{% endblock title %}
+
+{% block homeactive %}
+active                
+{% endblock homeactive %}
+
+{% block message %}
+{% if messages %}
+{% for message in messages %}
+<h4>{{ message }}</h4>
+{% endfor %} 
+{% endif %}
+{% endblock message %}
+
+
+{% block main %}
+
+
+
+
+{% for post in posts %}
+    
+
+<br>
+<div class="card bg-dark text-white mynav">
+    
+    <div class="card-body">
+        <h4>{{ post.topic }}</h4>
+        <p> {{ post.blog |linebreaks }}</p> <hr>
+        
+        {% if post.coverimage %}
+        <img src="{{ post.coverimage.url }}" height="200" width="200" alt="">
+        {% endif %}
+            
+        <br>
+        
+        {% if request.user == post.user %}
+        <form action="{% url 'deletepost' post.id %}" method="post">
+            {% csrf_token %}
+            <button class="btn btn-danger">Delete</button>
+        </form>
+        {% endif %}
+            
+    </div>
+
+    <div class="card-footer">Post by {{ post.user.first_name }} {{ post.user.last_name }}</div>
+</div>
+
+
+{% endfor %}
+    
+
+{% endblock main %}
+    

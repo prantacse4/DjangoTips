@@ -1,0 +1,60 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}
+    Signup
+{% endblock title %}
+
+{% load static %}
+{% block signupactive %}
+active
+{% endblock signupactive %}
+
+{% block main %}
+
+<div class="card bg-dark text-white mynav">
+    <div class="card-header">
+        <h2>Signup</h2>
+    </div>
+    <div class="card-body">
+
+        {% if myform.errors.username %}
+        <div class="alert">
+        <h5>{{myform.errors.username}}</h5>
+        </div>
+        {% endif %}
+
+        {% if myform.errors.password1 %}
+        <div class="alert">
+            <h5>{{myform.errors.password1}}</h5>
+        </div>
+        {% endif %}
+        {% if myform.errors.password2 %}
+        <div class="alert">
+            <h5>{{myform.errors.password2}}</h5>
+        </div>
+        {% endif %}
+        
+        <form action="" method="POST">
+            {% csrf_token %}
+            <label class="form-control-label mt-3 mb-2">First Name</label>
+            <input type="text" class="form-control mt-1 myinput mb-1" placeholder="First Name" name="first_name" required>
+            
+            <label class="form-control-label mt-3 mb-2">Last Name</label>
+            <input type="text" class="form-control mt-1 myinput mb-1" placeholder="Last Name" name="last_name" required>
+            
+
+            <label class="form-control-label mt-3 mb-2">Username</label>
+            <input type="text" class="form-control mt-1 myinput mb-1" placeholder="Username" name="username" required>
+            
+            <label class="form-control-label mt-3 mb-2">Password</label>
+            <input type="password" class="form-control myinput" placeholder="*******" name="password1" required>
+            <label class="form-control-label mt-3 mb-2">Confirm</label>
+            <input type="password" class="form-control myinput"  placeholder="*******" name="password2" required>
+            <button class="btn btn-info mt-2 mb-2">Signup</button>
+        </form>
+    </div>
+</div>
+
+
+{% endblock main %}
+    

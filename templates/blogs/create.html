@@ -1,0 +1,61 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+{% block title %}
+    Create
+{% endblock title %}
+
+
+{% block createactive %}
+
+active
+
+{% endblock createactive %}
+
+{% block message %}
+{% if messages %}
+{% for message in messages %}
+<h4>{{ message }}</h4>
+{% endfor %} 
+{% endif %}
+{% endblock message %}
+
+
+{% block main %}
+
+{% if myform.errors.user %}
+<div class="alert">
+    <h5>{{myform.errors.user}}</h5>
+</div>
+{% endif %}
+{% if myform.errors.topic %}
+<div class="alert">
+    <h5>{{myform.errors.topic}}</h5>
+</div>
+{% endif %}
+
+{% if myform.errors.coverimage %}
+<div class="alert">
+    <h5>{{myform.errors.coverimage}}</h5>
+</div>
+{% endif %}
+{% if myform.errors.blog %}
+<div class="alert">
+    <h5>{{myform.errors.blog}}</h5>
+</div>
+{% endif %}
+
+<h1>Create</h1>
+<form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="text" name="user" value="{{ request.user.id }}" class="d-none">
+    <label class="form-control-label mt-3 mb-2">Topic</label>
+    <input type="text" class="form-control mt-1 mb-1 myinput" placeholder="Tags" name="topic" required>
+    <label class="form-control-label mt-3 mb-2">Blog</label>
+    <textarea name="blog" cols="30" rows="10" class="form-control myinput  mt-1 mb-1"></textarea>
+    <label class="form-control-label mt-3 mb-2 ">Image Cover</label>
+    <input type="file" name="coverimage" class="form-control myinput mt-1 mb-1"><br>
+    <button class="btn btn-primary">Create Post</button>
+</form>
+
+{% endblock main %}
+    

@@ -1,0 +1,43 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+{% block title %}
+    Login
+{% endblock title %}
+
+{% block loginactive %}
+
+active
+
+{% endblock loginactive %}
+
+{% block message %}
+{% if messages %}
+{% for message in messages %}
+<h4>{{ message }}</h4>
+{% endfor %} 
+{% endif %}
+{% endblock message %}
+
+
+{% block main %}
+    
+<div class="card bg-dark text-white mynav">
+    <div class="card-header">
+        <h2>Login</h2>
+    </div>
+    <div class="card-body">
+        <form action="" method="POST">
+            {% csrf_token %}
+            <label class="form-control-label mt-3 mb-2">Username</label>
+            <input type="text" class="form-control mt-1 mb-1 myinput" placeholder="Username" name="username" required>
+            <label class="form-control-label mt-3 mb-2 ">Password</label>
+            <input type="password" class="form-control myinput" placeholder="*******" name="password" required>
+            <br>
+            <button class="btn btn-info mt-2 mb-2">Login</button>
+        </form>
+    </div>
+</div>
+
+
+{% endblock main %}
+    

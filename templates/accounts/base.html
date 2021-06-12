@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="Description" content="Enter your description here"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link rel="stylesheet" href="{% static 'css/base.css' %}">
+<link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+<link rel="icon" href="{% static 'image/logo.png' %}" type="image/png" >
+
+{% block extracss %}
+    
+{% endblock extracss %}
+    
+<title>
+{% block title %}
+    
+{% endblock title %}
+    </title>
+</head>
+<body>
+
+
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark mynav">
+    <a class="navbar-brand mycolor" href="{% url 'index' %}"><b>DjangoTips</b></a>
+    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <form class="form-inline my-2 my-lg-0" method="GET" action="{% url 'search' %}">
+
+        {% if givenSearch  %}
+        <input class="form-control mr-sm-2 myinput" type="search" name="search" placeholder="Search" value="{{ givenSearch }}" aria-label="Search">
+        {% else %}
+        <input class="form-control mr-sm-2 myinput" type="search" name="search" placeholder="Search" aria-label="Search">
+
+        {% endif %}
+        
+        <button class="btn btn-outline-success my-2 my-sm-0 mybtn" type="submit">Search</button>
+      </form>
+
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item 
+        {% block homeactive %}
+            
+        {% endblock homeactive %}
+            ">
+          <a class="nav-link" href="{% url 'index' %}">Home</a>
+        </li>
+
+        <li class="nav-item 
+        {% block createactive %}
+            
+        {% endblock createactive %}
+            ">
+          <a class="nav-link" href="{% url 'create' %}">Create</a>
+        </li>
+        
+        
+       
+        
+        {% if request.user.is_authenticated == True %} 
+
+        <li class="nav-item 
+        {% block profileactive %}
+            
+        {% endblock profileactive %}
+            ">
+          <a class="nav-link" href="{% url 'profile' %}">My Profile</a>
+        </li>
+        {% endif %}
+          
+        
+
+
+        {% if request.user.is_authenticated == False %}
+        <li class="nav-item 
+        {% block loginactive %}
+            
+        {% endblock loginactive %}
+            ">
+          <a class="nav-link" href="{% url 'loginpage' %}">Login</a>
+        </li>
+
+        <li class="nav-item 
+        {% block signupactive %}
+            
+        {% endblock signupactive %}
+            ">
+          <a class="nav-link" href="{% url 'signuppage' %}">Signup</a>
+        </li>
+        {% endif %}
+
+
+        {% if request.user.is_authenticated == True %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{ request.user.username }}
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{% url 'logoutuser' %}">Logout</a>
+          </div>
+        </li>
+        {% endif %}
+        
+      </ul>
+      
+    </div>
+  </nav>
+
+
+  <div class="margin-top1rem"></div>
+
+  <div class="notification" id="notification">
+  {% block message %}
+    
+  {% endblock message %}
+  </div>
+
+  
+
+<div class="container">
+  <br><br>
+{% block main %}
+    
+{% endblock main %} 
+<br><br>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+
+    
+<script>
+  $(document).ready(function() {
+    $('#notification').on('click', function(){
+      $('#notification').hide();
+    });
+  });
+</script>
+
+{% block extrajs %}
+  
+{% endblock extrajs %}
+
+
+    
+</body>
+</html>
